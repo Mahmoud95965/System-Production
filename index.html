@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>نظام إدارة المنتجات</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <header>
@@ -16,6 +18,33 @@
     <button id="admin-btn" style="display: none;">إدارة المنتجات</button>
   </header>
 
+  <section id="hero">
+    <h1>نظام إدارة المنتجات</h1>
+    <p>نظام شامل لإدارة منتجاتك بسهولة وفعالية</p>
+  </section>
+
+  <section id="features">
+    <h2>مميزات النظام</h2>
+    <ul>
+      <li><strong>إدارة المنتجات:</strong> إضافة، تعديل، وحذف المنتجات بسهولة.</li>
+      <li><strong>خصومات:</strong> إدارة الخصومات على المنتجات.</li>
+      <li><strong>تسجيل الدخول الآمن:</strong> تسجيل الدخول عبر Google لضمان أمان بياناتك.</li>
+      <li><strong>واجهة مستخدم سهلة الاستخدام:</strong> تصميم بديهي وسهل الاستخدام.</li>
+      <li><strong>خصائص فريدة:</strong> ميزات خاصة تجعل هذا النظام متميزًا عن غيره.</li>
+    </ul>
+  </section>
+
+  <section id="why-us">
+    <h2>لماذا يجب عليك اختيار نظامنا؟</h2>
+    <p>نظامنا يقدم مجموعة من الميزات التي تجعله الخيار الأمثل لإدارة منتجاتك:</p>
+    <ul>
+      <li><strong>سهولة الاستخدام:</strong> واجهة مستخدم بديهية تجعل إدارة المنتجات أمرًا سهلاً.</li>
+      <li><strong>الأمان:</strong> تسجيل الدخول عبر Google يضمن أمان بياناتك.</li>
+      <li><strong>الكفاءة:</strong> إدارة المنتجات بسرعة وكفاءة.</li>
+      <li><strong>الدعم المستمر:</strong> نقدم دعمًا فنيًا مستمرًا لضمان عمل النظام بكفاءة.</li>
+    </ul>
+  </section>
+
   <main>
     <h1>منتجاتنا</h1>
     <ul id="products-list"></ul>
@@ -25,7 +54,6 @@
     <p>&copy; 2023 نظام إدارة المنتجات</p>
   </footer>
 
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="styles.css"></script>
+  <script src="script.js"></script>
 </body>
 </html>

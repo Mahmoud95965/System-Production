@@ -83,6 +83,15 @@ header #userProfile span {
 
 section {
     margin-bottom: 20px;
+    height: 100vh; /* كل قسم يأخذ مساحة الشاشة الكاملة */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section h2 {
+    margin-bottom: 20px;
 }
 
 form {
@@ -188,4 +197,24 @@ td button:hover {
 #contact ul li a img {
     width: 30px;
     height: 30px;
+}
+
+#home, #vegetables, #fruits, #other, #contact {
+    background: linear-gradient(135deg, #f0f4f8, #e0eaf1);
+}
+
+#vegetables {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+}
+
+#fruits {
+    background: linear-gradient(135deg, #ffe6e6, #ffcccc);
+}
+
+#other {
+    background: linear-gradient(135deg, #e6e6fa, #d1d1e0);
+}
+
+#contact {
+    background: linear-gradient(135deg, #e6e6e6, #d1d1d1);
 }

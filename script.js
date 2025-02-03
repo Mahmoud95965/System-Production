@@ -11,9 +11,11 @@ function displayProducts() {
   products.forEach((product, index) => {
     const li = document.createElement('li');
     li.innerHTML = `
-      <h2>${product.name}</h2>
-      <p>السعر: ${product.price} دولار</p>
-      <p>الخصم: ${product.discount}%</p>
+      <div>
+        <h2>${product.name}</h2>
+        <p>السعر: ${product.price} دولار</p>
+        <p>الخصم: ${product.discount}%</p>
+      </div>
     `;
     productList.appendChild(li);
   });
@@ -23,31 +25,26 @@ function displayProducts() {
 const googleClientId = '997635938104-06o8a6coujsh0tg8skjpa2d0m7kr4pqe.apps.googleusercontent.com';
 
 document.getElementById('login-btn').addEventListener('click', () => {
-  const auth2 = window.gapi.auth2.getAuthInstance();
-  if (!auth2) {
-    window.gapi.load('auth2', () => {
-      window.gapi.auth2.init({ client_id: googleClientId }).then(() => {
-        const auth2 = window.gapi.auth2.getAuthInstance();
-        auth2.signIn().then(user => {
-          const profile = user.getBasicProfile();
-          document.getElementById('user-info').innerHTML = `
-            <img src="${profile.getImageUrl()}">
-            <p>مرحبًا، ${profile.getName()}!</p>
-          `;
-          document.getElementById('login-btn').style.display = 'none';
-          document.getElementById('admin-btn').style.display = 'inline-block';
-        });
+  window.gapi.load('auth2', () => {
+    window.gapi.auth2.init({ client_id: googleClientId }).then(() => {
+      const auth2 = window.gapi.auth2.getAuthInstance();
+      auth2.signIn().then(user => {
+        const profile = user.getBasicProfile();
+        document.getElementById('user-info').innerHTML = `
+          <img src="${profile.getImageUrl()}">
+          <p>مرحبًا، ${profile.getName()}!</p>
+        `;
+        document.getElementById('login-btn').style.display = 'none';
+        document.getElementById('admin-btn').style.display = 'inline-block';
       });
     });
-  } else {
-    auth2.signIn();
-  }
+  });
 });
 
 // إدارة المنتجات
 document.getElementById('admin-btn').addEventListener('click', () => {
-  const password = prompt('mahmoud5310');
-  if (password === 'your_password') {
+  const password = prompt('أدخل كلمة المرور:');
+  if (password === 'Mahmoud5310') {
     showAdminPanel();
   } else {
     alert('كلمة المرور غير صحيحة!');
@@ -62,11 +59,11 @@ function showAdminPanel() {
     <input type="number" id="product-price" placeholder="السعر">
     <input type="number" id="product-discount" placeholder="الخصم">
     <button id="add-product-btn">إضافة منتج</button>
-    <ul id="admin-products-list"></ul>
+    <ul id="admin-products-list" class="admin-panel"></ul>
   `;
 
   const main = document.querySelector('main');
-  main.innerHTML = adminPanel;
+  main.innerHTML += adminPanel;
 
   // إضافة منتج
   document.getElementById('add-product-btn').addEventListener('click', () => {
@@ -78,6 +75,7 @@ function showAdminPanel() {
       products.push({ name, price, discount });
       localStorage.setItem('products', JSON.stringify(products));
       displayProducts();
+      displayAdminProducts();
       alert('تمت إضافة المنتج بنجاح!');
     } else {
       alert('يرجى ملء جميع الحقول.');
@@ -92,9 +90,11 @@ function showAdminPanel() {
     products.forEach((product, index) => {
       const li = document.createElement('li');
       li.innerHTML = `
-        <h2>${product.name}</h2>
-        <p>السعر: ${product.price} دولار</p>
-        <p>الخصم: ${product.discount}%</p>
+        <div>
+          <h2>${product.name}</h2>
+          <p>السعر: ${product.price} دولار</p>
+          <p>الخصم: ${product.discount}%</p>
+        </div>
         <button onclick="deleteProduct(${index})">حذف</button>
       `;
       adminProductList.appendChild(li);

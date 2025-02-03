@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="997635938104-06o8a6coujsh0tg8skjpa2d0m7kr4pqe.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
 </head>
 <body>
     <div class="container" id="container">
         <header>
             <h1>نظام إدارة المنتجات</h1>
             <p>نظام بسيط لإدارة المنتجات، يتيح إضافة، حذف، وتحرير المنتجات مع تخزين البيانات في المتصفح.</p>
-            <a id="viewActivityLog" href="activity_log.html">عرض سجل الأحداث</a>
+            <a id="viewActivityLog" href="#">عرض سجل الأحداث</a>
             <div id="googleSignInButton" class="google-signin-button">
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
@@ -41,6 +41,14 @@
         </section>
         <section id="productsSection">
             <h2>المنتجات المضافة</h2>
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="بحث عن منتج..." onkeyup="filterProducts()">
+                <select id="sortSelect" onchange="sortProducts()">
+                    <option value="name">اسم المنتج</option>
+                    <option value="price">السعر</option>
+                    <option value="discount">الخصم (%)</option>
+                </select>
+            </div>
             <table id="productsTable">
                 <thead>
                     <tr>

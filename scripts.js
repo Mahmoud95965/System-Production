@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('viewActivityLog').addEventListener('click', function() {
-        window.location.href = 'activity_log.html';
+        promptForPassword();
     });
 });
 
@@ -139,7 +139,7 @@ function onSignIn(googleUser) {
     document.getElementById('googleSignInButton').style.display = 'none';
     document.getElementById('userProfile').style.display = 'flex';
 
-    logActivity(`User ${profile.getName()} signed in at ${new Date().toLocaleString()}`);
+    logActivity(`User ${profile.getName()} (${profile.getEmail()}) signed in at ${new Date().toLocaleString()}`);
 }
 
 function signOut() {
@@ -164,4 +164,14 @@ function loadActivityLog() {
     const activityLog = JSON.parse(localStorage.getItem('activityLog')) || [];
     const logContainer = document.getElementById('activityLogContainer');
     logContainer.innerHTML = activityLog.map(log => `<p>${log}</p>`).join('');
+}
+
+function promptForPassword() {
+    const password = 'Mahmoud5310'; // Replace with your actual password
+    const enteredPassword = prompt('أدخل كلمة المرور للوصول إلى سجل الأحداث:');
+    if (enteredPassword === password) {
+        window.location.href = 'activity_log.html';
+    } else {
+        alert('كلمة المرور غير صحيحة. الرجاء المحاولة مرة أخرى.');
+    }
 }

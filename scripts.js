@@ -3,11 +3,16 @@ let products = JSON.parse(localStorage.getItem('products')) || [];
 
 // عرض المنتجات
 function displayProducts() {
-    const productsTableBody = document.getElementById('productsTable').getElementsByTagName('tbody')[0];
-    productsTableBody.innerHTML = '';
+    const vegetablesTableBody = document.getElementById('vegetablesTable').getElementsByTagName('tbody')[0];
+    const fruitsTableBody = document.getElementById('fruitsTable').getElementsByTagName('tbody')[0];
+    const otherTableBody = document.getElementById('otherTable').getElementsByTagName('tbody')[0];
+
+    vegetablesTableBody.innerHTML = '';
+    fruitsTableBody.innerHTML = '';
+    otherTableBody.innerHTML = '';
 
     products.forEach((product, index) => {
-        const row = productsTableBody.insertRow();
+        const row = document.createElement('tr');
         const nameCell = row.insertCell(0);
         const priceCell = row.insertCell(1);
         const discountCell = row.insertCell(2);
@@ -17,6 +22,14 @@ function displayProducts() {
         priceCell.textContent = product.price + ' دولار';
         discountCell.textContent = product.discount + '%';
         finalPriceCell.textContent = (product.price * (1 - product.discount / 100)).toFixed(2) + ' دولار';
+
+        if (product.category === 'vegetables') {
+            vegetablesTableBody.appendChild(row);
+        } else if (product.category === 'fruits') {
+            fruitsTableBody.appendChild(row);
+        } else {
+            otherTableBody.appendChild(row);
+        }
     });
 }
 

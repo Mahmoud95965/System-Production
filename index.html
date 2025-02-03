@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -21,21 +22,9 @@
                 <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
                 <span id="userName"></span>
                 <button onclick="signOut()">تسجيل الخروج</button>
+                <button id="admin-btn" onclick="showAdminPage()" style="display: none;">إدارة المنتجات</button>
             </div>
-            <button id="admin-btn" style="display: none;" onclick="showAdminModal()">إدارة المنتجات</button>
         </header>
-        <section id="addProductSection" style="display: none;">
-            <h2>إضافة منتج جديد</h2>
-            <form id="productForm">
-                <label for="name">اسم المنتج:</label>
-                <input type="text" id="name" required>
-                <label for="price">السعر:</label>
-                <input type="number" id="price" required>
-                <label for="discount">الخصم (%):</label>
-                <input type="number" id="discount" min="0" max="100">
-                <button type="submit">إضافة المنتج</button>
-            </form>
-        </section>
         <section id="productsSection">
             <h2>المنتجات المضافة</h2>
             <table id="productsTable">
@@ -45,7 +34,6 @@
                         <th>السعر</th>
                         <th>الخصم (%)</th>
                         <th>السعر بعد الخصم</th>
-                        <th>العمليات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,16 +42,6 @@
             </table>
         </section>
     </div>
-
-    <!-- Admin Modal -->
-    <div id="admin-modal" style="display: none;">
-        <div class="modal-content">
-            <h2>إدارة المنتجات</h2>
-            <input type="password" id="admin-password" placeholder="أدخل كلمة المرور">
-            <button id="admin-login-btn">تسجيل الدخول</button>
-        </div>
-    </div>
-
     <script src="scripts.js"></script>
     <!-- Code injected by live-server -->
     <script>

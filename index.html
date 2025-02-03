@@ -6,12 +6,22 @@
     <title>نظام إدارة المنتجات</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="997635938104-06o8a6coujsh0tg8skjpa2d0m7kr4pqe.apps.googleusercontent.com.apps.googleusercontent.com">
 </head>
 <body>
     <div class="container" id="container">
         <header>
             <h1>نظام إدارة المنتجات</h1>
             <p>نظام بسيط لإدارة المنتجات، يتيح إضافة، حذف، وتحرير المنتجات مع تخزين البيانات في المتصفح.</p>
+            <div id="googleSignInButton" class="google-signin-button">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+            <div id="userProfile" style="display: none;">
+                <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
+                <span id="userName"></span>
+                <button onclick="signOut()">تسجيل الخروج</button>
+            </div>
         </header>
         <section id="addProductSection">
             <h2>إضافة منتج جديد</h2>

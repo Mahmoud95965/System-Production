@@ -1,4 +1,4 @@
-/* style.css */
+/* styles.css */
 body {
   font-family: 'Cairo', sans-serif;
   direction: rtl;
@@ -8,6 +8,12 @@ body {
   box-sizing: border-box;
   background-color: #f0f4f8;
   color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 header {
@@ -20,143 +26,132 @@ header {
   align-items: center;
 }
 
-#user-info img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+header h1 {
+  margin: 0;
+}
+
+.google-signin-button {
+  display: inline-block;
   margin-left: 10px;
 }
 
-#user-info p {
-  margin: 0;
-  display: inline;
+#userProfile {
+  display: flex;
+  align-items: center;
 }
 
-#login-btn, #admin-btn {
+#userProfile img {
+  margin-left: 10px;
+}
+
+#userProfile span {
+  margin-left: 10px;
+}
+
+#userProfile button {
+  margin-left: 10px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#userProfile button:hover {
+  background-color: #003d80;
+}
+
+#admin-btn {
   background-color: #0056b3;
   color: #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s;
+  margin-left: 10px;
 }
 
-#login-btn:hover, #admin-btn:hover {
+#admin-btn:hover {
   background-color: #003d80;
 }
 
-#hero {
-  background-color: #007bff;
-  color: #fff;
-  padding: 50px 20px;
-  margin-bottom: 20px;
-}
-
-#hero h1 {
-  font-size: 36px;
-  margin: 0;
-}
-
-#hero p {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-#features, #why-us {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#features h2, #why-us h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-#features ul, #why-us ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#features li, #why-us li {
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-main {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-main h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-li h2, li p {
-  margin: 0;
-}
-
-.admin-panel {
-  display: none;
+#addProductSection {
   margin-top: 20px;
 }
 
-.admin-panel input {
+#addProductSection form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#addProductSection label {
+  margin: 10px 0;
+}
+
+#addProductSection input {
   margin: 5px 0;
   padding: 5px;
   width: 100%;
 }
 
-.admin-panel button {
-  margin: 10px 0;
+#addProductSection button {
+  margin-top: 10px;
   padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s;
 }
 
-.admin-panel button:hover {
+#addProductSection button:hover {
   background-color: #0056b3;
 }
 
-footer {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+#productsSection {
+  margin-top: 20px;
 }
 
-.modal {
+#productsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#productsTable th, #productsTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: right;
+}
+
+#productsTable th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+#productsTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#productsTable tr:hover {
+  background-color: #ddd;
+}
+
+#productsTable button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#productsTable button:hover {
+  background-color: #0056b3;
+}
+
+#admin-modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -168,26 +163,34 @@ footer {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+#admin-modal .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
+  width: 300px;
   border-radius: 10px;
+  text-align: center;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+#admin-modal input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
+#admin-modal button {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+#admin-modal button:hover {
+  background-color: #0056b3;
 }

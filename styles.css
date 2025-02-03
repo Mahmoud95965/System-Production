@@ -18,6 +18,7 @@ body.show {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
 header {
@@ -70,6 +71,11 @@ input {
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #007BFF;
 }
 
 button {
@@ -117,6 +123,23 @@ td button:hover {
     background-color: #cc0000;
 }
 
+.search-filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.search-filter input, .search-filter select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.search-filter input:focus, .search-filter select:focus {
+    border-color: #007BFF;
+}
+
 #activityLogContainer {
     margin-top: 20px;
 }
@@ -124,4 +147,20 @@ td button:hover {
 #activityLogContainer p {
     margin: 5px 0;
     color: #555;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+}
+
+.success {
+    background-color: #28a745;
+}
+
+.error {
+    background-color: #dc3545;
 }

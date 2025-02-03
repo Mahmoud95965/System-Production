@@ -8,25 +8,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="997635938104-06o8a6coujsh0tg8skjpa2d0m7kr4pqe.apps.googleusercontent.com">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#vegetables">الخضروات</a></li>
+                <li><a href="#fruits">الفواكه</a></li>
+                <li><a href="#other">المنتجات الأخرى</a></li>
+                <li id="googleSignInButton" class="google-signin-button">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </li>
+                <li id="userProfile" style="display: none;">
+                    <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
+                    <span id="userName"></span>
+                    <button onclick="signOut()">تسجيل الخروج</button>
+                    <button id="admin-btn" onclick="showAdminModal()" style="display: none;">إدارة المنتجات</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container" id="container">
-        <header>
+        <section id="home">
             <h1>نظام إدارة المنتجات</h1>
             <p>نظام بسيط لإدارة المنتجات، يتيح إضافة، حذف، وتحرير المنتجات مع تخزين البيانات في المتصفح.</p>
-            <div id="googleSignInButton" class="google-signin-button">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            </div>
-            <div id="userProfile" style="display: none;">
-                <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
-                <span id="userName"></span>
-                <button onclick="signOut()">تسجيل الخروج</button>
-                <button id="admin-btn" onclick="showAdminModal()" style="display: none;">إدارة المنتجات</button>
-            </div>
-        </header>
-        <section id="productsSection">
-            <h2>المنتجات المضافة</h2>
-            <table id="productsTable">
+        </section>
+
+        <section id="vegetables">
+            <h2>الخضروات</h2>
+            <table id="vegetablesTable">
                 <thead>
                     <tr>
                         <th>اسم المنتج</th>
@@ -36,9 +49,59 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Products will be added here dynamically -->
+                    <!-- Vegetables will be added here dynamically -->
                 </tbody>
             </table>
+        </section>
+
+        <section id="fruits">
+            <h2>الفواكه</h2>
+            <table id="fruitsTable">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>السعر</th>
+                        <th>الخصم (%)</th>
+                        <th>السعر بعد الخصم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Fruits will be added here dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="other">
+            <h2>المنتجات الأخرى</h2>
+            <table id="otherTable">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>السعر</th>
+                        <th>الخصم (%)</th>
+                        <th>السعر بعد الخصم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Other products will be added here dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="contact">
+            <h2>التواصل معنا</h2>
+            <p>يمكنك التواصل معنا عبر الوسائل التالية:</p>
+            <ul>
+                <li><a href="https://wa.me/1234567890" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" alt="WhatsApp" style="width: 30px; height: 30px;"></a></li>
+                <li><a href="https://facebook.com/yourpage" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png" alt="Facebook" style="width: 30px; height: 30px;"></a></li>
+            </ul>
+            <p>نحن نقدم نظامًا شاملًا لإدارة المنتجات مع ميزات متقدمة:</p>
+            <ul>
+                <li><strong>سهولة الاستخدام:</strong> واجهة مستخدم بديهية تجعل إدارة المنتجات أمرًا سهلاً.</li>
+                <li><strong>الأمان:</strong> تسجيل الدخول عبر Google يضمن أمان بياناتك.</li>
+                <li><strong>الكفاءة:</strong> إدارة المنتجات بسرعة وكفاءة.</li>
+                <li><strong>الدعم المستمر:</strong> نقدم دعمًا فنيًا مستمرًا لضمان عمل النظام بكفاءة.</li>
+            </ul>
         </section>
     </div>
 
@@ -51,5 +114,27 @@
     </div>
 
     <script src="scripts.js"></script>
+    <script>
+        // تأثير ظهور الموقع ببطء
+        $(document).ready(function() {
+            $('body').css('opacity', 0).animate({ opacity: 1 }, 1000);
+        });
+
+        // تأثير كتابة الكلمة الثابتة ببطء
+        const text = "مرحبا بك في متجرنا الإلكتروني";
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("dynamic-text").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        window.onload = function() {
+            typeWriter();
+        };
+    </script>
 </body>
 </html>

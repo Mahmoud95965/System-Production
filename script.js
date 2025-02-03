@@ -43,9 +43,15 @@ document.getElementById('login-btn').addEventListener('click', () => {
 
 // إدارة المنتجات
 document.getElementById('admin-btn').addEventListener('click', () => {
-  const password = prompt('أدخل كلمة المرور:');
+  document.getElementById('admin-modal').style.display = 'block';
+});
+
+// تسجيل الدخول إلى لوحة الإدارة
+document.getElementById('admin-login-btn').addEventListener('click', () => {
+  const password = document.getElementById('admin-password').value;
   if (password === 'Mahmoud5310') {
     showAdminPanel();
+    document.getElementById('admin-modal').style.display = 'none';
   } else {
     alert('كلمة المرور غير صحيحة!');
   }
@@ -95,6 +101,7 @@ function showAdminPanel() {
           <p>السعر: ${product.price} دولار</p>
           <p>الخصم: ${product.discount}%</p>
         </div>
+        <button onclick="editProduct(${index})">تعديل</button>
         <button onclick="deleteProduct(${index})">حذف</button>
       `;
       adminProductList.appendChild(li);
@@ -102,6 +109,24 @@ function showAdminPanel() {
   }
 
   displayAdminProducts();
+}
+
+// تعديل منتج
+function editProduct(index) {
+  const product = products[index];
+  const name = prompt('أدخل اسم المنتج الجديد:', product.name);
+  const price = prompt('أدخل السعر الجديد:', product.price);
+  const discount = prompt('أدخل الخصم الجديد:', product.discount);
+
+  if (name && price && discount) {
+    products[index] = { name, price, discount };
+    localStorage.setItem('products', JSON.stringify(products));
+    displayProducts();
+    displayAdminProducts();
+    alert('تم تعديل المنتج بنجاح!');
+  } else {
+    alert('يرجى ملء جميع الحقول.');
+  }
 }
 
 // حذف منتج

@@ -24,12 +24,14 @@ document.addEventListener('DOMContentLoaded', function() {
             addProductToTable(product);
             saveProduct(product);
 
+            showSuccessMessage('تم إضافة المنتج بنجاح.');
+
             // Clear form inputs
             document.getElementById('name').value = '';
             document.getElementById('price').value = '';
             document.getElementById('discount').value = '';
         } else {
-            alert('يرجى تعبئة جميع الحقول بشكل صحيح.');
+            showErrorMessage('يرجى تعبئة جميع الحقول بشكل صحيح.');
         }
     });
 
@@ -73,6 +75,7 @@ function deleteProduct(button) {
     localStorage.setItem('products', JSON.stringify(products));
 
     row.remove();
+    showSuccessMessage('تم حذف المنتج بنجاح.');
 }
 
 function editProduct(button) {
@@ -113,8 +116,9 @@ function editProduct(button) {
             document.getElementById('discount').value = '';
 
             row.style.display = '';
+            showSuccessMessage('تم تحديث المنتج بنجاح.');
         } else {
-            alert('يرجى تعبئة جميع الحقول بشكل صحيح.');
+            showErrorMessage('يرجى تعبئة جميع الحقول بشكل صحيح.');
         }
     });
 }
@@ -167,11 +171,65 @@ function loadActivityLog() {
 }
 
 function promptForPassword() {
-    const password = 'Mahmoud5310'; // Replace with your actual password
+    const password = 'your_password'; // Replace with your actual password
     const enteredPassword = prompt('أدخل كلمة المرور للوصول إلى سجل الأحداث:');
     if (enteredPassword === password) {
         window.location.href = 'activity_log.html';
     } else {
         alert('كلمة المرور غير صحيحة. الرجاء المحاولة مرة أخرى.');
     }
+}
+
+function filterProducts() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const rows = document.getElementById('productsTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        const name = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+        if (name.includes(searchInput)) {
+            rows[i].style.display = '';
+        } else {
+            rows[i].style.display = 'none';
+        }
+    }
+}
+
+function sortProducts() {
+    const sortSelect = document.getElementById('sortSelect').value;
+    const rows = Array.from(document.getElementById('productsTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+
+    rows.sort((a, b) => {
+        const aVal = a.getElementsByTagName('td')[['name', 'price', 'discount'].indexOf(sortSelect)].innerText;
+        const bVal = b.getElementsByTagName('td')[['name', 'price', 'discount'].indexOf(sortSelect)].innerText;
+        return aVal.localeCompare(bVal);
+    });
+
+    const tbody = document.getElementById('productsTable').getElementsByTagName('tbody')[0];
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function showSuccessMessage(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert success';
+    alertDiv.innerText = message;
+    document.getElementById('container').insertBefore(alertDiv, document.getElementById('addProductSection'));
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+}
+
+function showErrorMessage(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert error';
+    alertDiv.innerText = message;
+    document.getElementById('container').insertBefore(alertDiv, document.getElementById('addProductSection'));
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
 }

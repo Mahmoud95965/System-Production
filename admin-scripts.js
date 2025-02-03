@@ -12,12 +12,14 @@ function displayAdminProducts() {
         const priceCell = row.insertCell(1);
         const discountCell = row.insertCell(2);
         const finalPriceCell = row.insertCell(3);
-        const actionsCell = row.insertCell(4);
+        const categoryCell = row.insertCell(4);
+        const actionsCell = row.insertCell(5);
 
         nameCell.textContent = product.name;
         priceCell.textContent = product.price + ' دولار';
         discountCell.textContent = product.discount + '%';
         finalPriceCell.textContent = (product.price * (1 - product.discount / 100)).toFixed(2) + ' دولار';
+        categoryCell.textContent = product.category;
 
         const editButton = document.createElement('button');
         editButton.textContent = 'تعديل';
@@ -37,9 +39,10 @@ document.getElementById('productForm').addEventListener('submit', (event) => {
     const name = document.getElementById('name').value;
     const price = document.getElementById('price').value;
     const discount = document.getElementById('discount').value;
+    const category = document.getElementById('category').value;
 
     if (name && price) {
-        products.push({ name, price, discount: discount || 0 });
+        products.push({ name, price, discount: discount || 0, category });
         localStorage.setItem('products', JSON.stringify(products));
         displayAdminProducts();
         document.getElementById('productForm').reset();
@@ -55,9 +58,10 @@ function editProduct(index) {
     const name = prompt('أدخل اسم المنتج الجديد:', product.name);
     const price = prompt('أدخل السعر الجديد:', product.price);
     const discount = prompt('أدخل الخصم الجديد:', product.discount);
+    const category = prompt('أدخل الفئة الجديدة:', product.category);
 
     if (name && price) {
-        products[index] = { name, price, discount: discount || 0 };
+        products[index] = { name, price, discount: discount || 0, category };
         localStorage.setItem('products', JSON.stringify(products));
         displayAdminProducts();
         alert('تم تعديل المنتج بنجاح!');

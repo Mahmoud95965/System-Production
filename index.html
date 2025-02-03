@@ -25,7 +25,7 @@
                     <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
                     <span id="userName"></span>
                     <button onclick="signOut()">تسجيل الخروج</button>
-                    <a href="admin.html" id="admin-btn" onclick="showAdminModal()" style="display: none;">إدارة المنتجات</a>
+                    <a id="admin-link" href="admin.html" onclick="showAdminModal()" style="display: none;">إدارة المنتجات</a>
                 </li>
             </ul>
         </nav>
@@ -122,6 +122,15 @@
         // تأثير ظهور الموقع ببطء
         $(document).ready(function() {
             $('body').css('opacity', 0).animate({ opacity: 1 }, 1000);
+
+            // تأثير التمرير البطيء بين الأقسام
+            $('nav ul li a').click(function(e) {
+                e.preventDefault();
+                const target = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top
+                }, 1000);
+            });
         });
 
         // تأثير كتابة الكلمة الثابتة ببطء
@@ -133,6 +142,18 @@
                 document.getElementById("dynamic-text").innerHTML += text.charAt(index);
                 index++;
                 setTimeout(typeWriter, 100);
+            } else {
+                setTimeout(eraseText, 3000); // بعد 3 ثوانٍ، امسح النص
+            }
+        }
+
+        function eraseText() {
+            if (index > 0) {
+                index--;
+                document.getElementById("dynamic-text").innerHTML = text.substring(0, index);
+                setTimeout(eraseText, 50);
+            } else {
+                setTimeout(typeWriter, 1000); // بعد ثانية، ابدأ الكتابة مرة أخرى
             }
         }
 

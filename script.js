@@ -1,115 +1,90 @@
-// script.js
+// scripts.js
 
 // بيانات المنتجات (يمكن تخزينها في localStorage)
 let products = JSON.parse(localStorage.getItem('products')) || [];
 
 // عرض المنتجات
 function displayProducts() {
-  const productList = document.getElementById('products-list');
-  productList.innerHTML = '';
+  const productsTableBody = document.getElementById('productsTable').getElementsByTagName('tbody')[0];
+  productsTableBody.innerHTML = '';
 
   products.forEach((product, index) => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <div>
-        <h2>${product.name}</h2>
-        <p>السعر: ${product.price} دولار</p>
-        <p>الخصم: ${product.discount}%</p>
-      </div>
-    `;
-    productList.appendChild(li);
+    const row = productsTableBody.insertRow();
+    const nameCell = row.insertCell(0);
+    const priceCell = row.insertCell(1);
+    const discountCell = row.insertCell(2);
+    const finalPriceCell = row.insertCell(3);
+    const actionsCell = row.insertCell(4);
+
+    nameCell.textContent = product.name;
+    priceCell.textContent = product.price + ' دولار';
+    discountCell.textContent = product.discount + '%';
+    finalPriceCell.textContent = (product.price * (1 - product.discount / 100)).toFixed(2) + ' دولار';
+
+    const editButton = document.createElement('button');
+    editButton.textContent = 'تعديل';
+    editButton.onclick = () => editProduct(index);
+    actionsCell.appendChild(editButton);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'حذف';
+    deleteButton.onclick = () => deleteProduct(index);
+    actionsCell.appendChild(deleteButton);
   });
 }
 
 // تسجيل الدخول عبر Google
-const googleClientId = '997635938104-06o8a6coujsh0tg8skjpa2d0m7kr4pqe.apps.googleusercontent.com';
+function onSignIn(googleUser) {
+  const profile = googleUser.getBasicProfile();
+  document.getElementById('userImage').src = profile.getImageUrl();
+  document.getElementById('userName').textContent = profile.getName();
+  document.getElementById('googleSignInButton').style.display = 'none';
+  document.getElementById('userProfile').style.display = 'flex';
+  document.getElementById('admin-btn').style.display = 'inline-block';
+}
 
-document.getElementById('login-btn').addEventListener('click', () => {
-  window.gapi.load('auth2', () => {
-    window.gapi.auth2.init({ client_id: googleClientId }).then(() => {
-      const auth2 = window.gapi.auth2.getAuthInstance();
-      auth2.signIn().then(user => {
-        const profile = user.getBasicProfile();
-        document.getElementById('user-info').innerHTML = `
-          <img src="${profile.getImageUrl()}">
-          <p>مرحبًا، ${profile.getName()}!</p>
-        `;
-        document.getElementById('login-btn').style.display = 'none';
-        document.getElementById('admin-btn').style.display = 'inline-block';
-      });
-    });
+// تسجيل الخروج
+function signOut() {
+  const auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(() => {
+    document.getElementById('googleSignInButton').style.display = 'block';
+    document.getElementById('userProfile').style.display = 'none';
+    document.getElementById('admin-btn').style.display = 'none';
   });
-});
+}
 
-// إدارة المنتجات
-document.getElementById('admin-btn').addEventListener('click', () => {
-  document.getElementById('admin-modal').style.display = 'block';
-});
-
-// تسجيل الدخول إلى لوحة الإدارة
-document.getElementById('admin-login-btn').addEventListener('click', () => {
-  const password = document.getElementById('admin-password').value;
-  if (password === 'Mahmoud5310') {
-    showAdminPanel();
-    document.getElementById('admin-modal').style.display = 'none';
+// عرض صفحة إدارة المنتجات
+function showAdminPage() {
+  const password = prompt('أدخل كلمة المرور:');
+  if (password === 'your_password') {
+    window.location.href = 'admin.html';
   } else {
     alert('كلمة المرور غير صحيحة!');
   }
-});
-
-// عرض لوحة الإدارة
-function showAdminPanel() {
-  const adminPanel = `
-    <h2>إدارة المنتجات</h2>
-    <input type="text" id="product-name" placeholder="اسم المنتج">
-    <input type="number" id="product-price" placeholder="السعر">
-    <input type="number" id="product-discount" placeholder="الخصم">
-    <button id="add-product-btn">إضافة منتج</button>
-    <ul id="admin-products-list" class="admin-panel"></ul>
-  `;
-
-  const main = document.querySelector('main');
-  main.innerHTML += adminPanel;
-
-  // إضافة منتج
-  document.getElementById('add-product-btn').addEventListener('click', () => {
-    const name = document.getElementById('product-name').value;
-    const price = document.getElementById('product-price').value;
-    const discount = document.getElementById('product-discount').value;
-
-    if (name && price && discount) {
-      products.push({ name, price, discount });
-      localStorage.setItem('products', JSON.stringify(products));
-      displayProducts();
-      displayAdminProducts();
-      alert('تمت إضافة المنتج بنجاح!');
-    } else {
-      alert('يرجى ملء جميع الحقول.');
-    }
-  });
-
-  // عرض المنتجات في لوحة الإدارة
-  function displayAdminProducts() {
-    const adminProductList = document.getElementById('admin-products-list');
-    adminProductList.innerHTML = '';
-
-    products.forEach((product, index) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <div>
-          <h2>${product.name}</h2>
-          <p>السعر: ${product.price} دولار</p>
-          <p>الخصم: ${product.discount}%</p>
-        </div>
-        <button onclick="editProduct(${index})">تعديل</button>
-        <button onclick="deleteProduct(${index})">حذف</button>
-      `;
-      adminProductList.appendChild(li);
-    });
-  }
-
-  displayAdminProducts();
 }
+
+// العودة إلى الصفحة الرئيسية
+function goBack() {
+  window.location.href = 'index.html';
+}
+
+// إضافة منتج
+document.getElementById('productForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const price = document.getElementById('price').value;
+  const discount = document.getElementById('discount').value;
+
+  if (name && price) {
+    products.push({ name, price, discount: discount || 0 });
+    localStorage.setItem('products', JSON.stringify(products));
+    displayProducts();
+    document.getElementById('productForm').reset();
+    alert('تمت إضافة المنتج بنجاح!');
+  } else {
+    alert('يرجى ملء جميع الحقول.');
+  }
+});
 
 // تعديل منتج
 function editProduct(index) {
@@ -118,11 +93,10 @@ function editProduct(index) {
   const price = prompt('أدخل السعر الجديد:', product.price);
   const discount = prompt('أدخل الخصم الجديد:', product.discount);
 
-  if (name && price && discount) {
-    products[index] = { name, price, discount };
+  if (name && price) {
+    products[index] = { name, price, discount: discount || 0 };
     localStorage.setItem('products', JSON.stringify(products));
     displayProducts();
-    displayAdminProducts();
     alert('تم تعديل المنتج بنجاح!');
   } else {
     alert('يرجى ملء جميع الحقول.');
@@ -134,7 +108,7 @@ function deleteProduct(index) {
   products.splice(index, 1);
   localStorage.setItem('products', JSON.stringify(products));
   displayProducts();
-  displayAdminProducts();
+  alert('تم حذف المنتج بنجاح!');
 }
 
 // عرض المنتجات عند تحميل الصفحة

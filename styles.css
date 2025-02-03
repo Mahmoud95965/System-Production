@@ -116,3 +116,12 @@ td button {
 td button:hover {
     background-color: #cc0000;
 }
+
+#activityLogContainer {
+    margin-top: 20px;
+}
+
+#activityLogContainer p {
+    margin: 5px 0;
+    color: #555;
+}

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('productForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const name = document.getElementById('name').value;
+        const name = document.getElementById('name').value.trim();
         const price = parseFloat(document.getElementById('price').value);
         const discount = parseFloat(document.getElementById('discount').value);
 
@@ -93,7 +93,7 @@ function editProduct(button) {
     document.getElementById('productForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const newName = document.getElementById('name').value;
+        const newName = document.getElementById('name').value.trim();
         const newPrice = parseFloat(document.getElementById('price').value);
         const newDiscount = parseFloat(document.getElementById('discount').value);
 

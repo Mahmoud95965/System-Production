@@ -1,26 +1,109 @@
 /* style.css */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Cairo', sans-serif;
   direction: rtl;
   text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f4f8;
+  color: #333;
 }
 
 header {
-  background-color: #f8f9fa;
+  background-color: #007bff;
+  color: #fff;
   padding: 10px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #user-info img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#user-info p {
+  margin: 0;
+  display: inline;
+}
+
+#login-btn, #admin-btn {
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+#login-btn:hover, #admin-btn:hover {
+  background-color: #003d80;
+}
+
+#hero {
+  background-color: #007bff;
+  color: #fff;
+  padding: 50px 20px;
+  margin-bottom: 20px;
+}
+
+#hero h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+#hero p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+#features, #why-us {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#features h2, #why-us h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#features ul, #why-us ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#features li, #why-us li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+main {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
@@ -28,4 +111,47 @@ li {
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li h2, li p {
+  margin: 0;
+}
+
+.admin-panel {
+  display: none;
+  margin-top: 20px;
+}
+
+.admin-panel input {
+  margin: 5px 0;
+  padding: 5px;
+  width: 100%;
+}
+
+.admin-panel button {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.admin-panel button:hover {
+  background-color: #0056b3;
+}
+
+footer {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

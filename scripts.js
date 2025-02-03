@@ -61,13 +61,55 @@ function showAdminModal() {
 // تسجيل الدخول إلى لوحة الإدارة
 document.getElementById('admin-login-btn').addEventListener('click', () => {
     const password = document.getElementById('admin-password').value;
-    if (password === 'your_password') {
+    if (password === 'Mahmoud5310') {
         window.location.href = 'admin.html';
         document.getElementById('admin-modal').style.display = 'none';
     } else {
         alert('كلمة المرور غير صحيحة!');
     }
 });
+
+// تأثير ظهور الموقع ببطء
+$(document).ready(function() {
+    $('body').css('opacity', 0).animate({ opacity: 1 }, 1000);
+
+    // تأثير التمرير البطيء بين الأقسام
+    $('nav ul li a').click(function(e) {
+        e.preventDefault();
+        const target = $(this).attr('href');
+        $('html, body').animate({
+            scrollTop: $(target).offset().top
+        }, 1000);
+    });
+});
+
+// تأثير كتابة الكلمة الثابتة ببطء
+const text = "مرحبا بك في متجرنا الإلكتروني";
+let index = 0;
+
+function typeWriter() {
+    if (index < text.length) {
+        document.getElementById("dynamic-text").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+    } else {
+        setTimeout(eraseText, 3000); // بعد 3 ثوانٍ، امسح النص
+    }
+}
+
+function eraseText() {
+    if (index > 0) {
+        index--;
+        document.getElementById("dynamic-text").innerHTML = text.substring(0, index);
+        setTimeout(eraseText, 50);
+    } else {
+        setTimeout(typeWriter, 1000); // بعد ثانية، ابدأ الكتابة مرة أخرى
+    }
+}
+
+window.onload = function() {
+    typeWriter();
+};
 
 // عرض المنتجات عند تحميل الصفحة
 displayProducts();

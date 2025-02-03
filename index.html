@@ -1,70 +1,31 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام إدارة المنتجات</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام إدارة المنتجات</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="container">
-        <header>
-            <h1>نظام إدارة المنتجات</h1>
-            <p>نظام بسيط لإدارة المنتجات، يتيح إضافة، حذف، وتحرير المنتجات مع تخزين البيانات في المتصفح.</p>
-            <a id="viewActivityLog" href="activity_log.html">عرض سجل الأحداث</a>
-            <div id="googleSignInButton" class="google-signin-button">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            </div>
-            <div id="userProfile" style="display: none;">
-                <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
-                <span id="userName"></span>
-                <button onclick="signOut()">تسجيل الخروج</button>
-            </div>
-        </header>
-        <section id="addProductSection">
-            <h2>إضافة منتج جديد</h2>
-            <form id="productForm">
-                <label for="name">اسم المنتج:</label>
-                <input type="text" id="name" required>
-
-                <label for="price">السعر:</label>
-                <input type="number" id="price" required>
-
-                <label for="discount">الخصم (%):</label>
-                <input type="number" id="discount" min="0" max="100">
-
-                <button type="submit">إضافة المنتج</button>
-            </form>
-        </section>
-        <section id="productsSection">
-            <h2>المنتجات المضافة</h2>
-            <div class="search-filter">
-                <input type="text" id="searchInput" placeholder="بحث عن منتج..." onkeyup="filterProducts()" class="search-input">
-                <select id="sortSelect" onchange="sortProducts()" class="sort-select">
-                    <option value="name">اسم المنتج</option>
-                    <option value="price">السعر</option>
-                    <option value="discount">الخصم (%)</option>
-                </select>
-            </div>
-            <table id="productsTable">
-                <thead>
-                    <tr>
-                        <th>اسم المنتج</th>
-                        <th>السعر</th>
-                        <th>الخصم (%)</th>
-                        <th>السعر بعد الخصم</th>
-                        <th>العمليات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Products will be added here dynamically -->
-                </tbody>
-            </table>
-        </section>
+  <header>
+    <div id="user-info">
+      <!-- سيتم عرض اسم المستخدم وصورته هنا -->
     </div>
-    <script src="scripts.js"></script>
+    <button id="login-btn">تسجيل الدخول عبر Google</button>
+    <button id="admin-btn" style="display: none;">إدارة المنتجات</button>
+  </header>
+
+  <main>
+    <h1>منتجاتنا</h1>
+    <ul id="products-list"></ul>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 نظام إدارة المنتجات</p>
+  </footer>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="scripts.js"></script>
 </body>
 </html>

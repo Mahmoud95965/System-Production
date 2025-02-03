@@ -40,7 +40,7 @@ function onSignIn(googleUser) {
     document.getElementById('userName').textContent = profile.getName();
     document.getElementById('googleSignInButton').style.display = 'none';
     document.getElementById('userProfile').style.display = 'flex';
-    document.getElementById('admin-btn').style.display = 'inline-block';
+    document.getElementById('admin-link').style.display = 'inline-block';
 }
 
 // تسجيل الخروج
@@ -49,7 +49,7 @@ function signOut() {
     auth2.signOut().then(() => {
         document.getElementById('googleSignInButton').style.display = 'block';
         document.getElementById('userProfile').style.display = 'none';
-        document.getElementById('admin-btn').style.display = 'none';
+        document.getElementById('admin-link').style.display = 'none';
     });
 }
 
@@ -61,7 +61,7 @@ function showAdminModal() {
 // تسجيل الدخول إلى لوحة الإدارة
 document.getElementById('admin-login-btn').addEventListener('click', () => {
     const password = document.getElementById('admin-password').value;
-    if (password === 'Mahmoud5310') {
+    if (password === 'your_password') {
         window.location.href = 'admin.html';
         document.getElementById('admin-modal').style.display = 'none';
     } else {

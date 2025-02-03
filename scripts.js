@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('show');
 
     loadProducts();
+    loadActivityLog();
 
     document.getElementById('productForm').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -30,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('يرجى تعبئة جميع الحقول بشكل صحيح.');
         }
+    });
+
+    document.getElementById('viewActivityLog').addEventListener('click', function() {
+        window.location.href = 'activity_log.html';
     });
 });
 
@@ -133,6 +138,8 @@ function onSignIn(googleUser) {
     document.getElementById('userName').innerText = profile.getName();
     document.getElementById('googleSignInButton').style.display = 'none';
     document.getElementById('userProfile').style.display = 'flex';
+
+    logActivity(`User ${profile.getName()} signed in at ${new Date().toLocaleString()}`);
 }
 
 function signOut() {
@@ -142,5 +149,19 @@ function signOut() {
         document.getElementById('userName').innerText = '';
         document.getElementById('googleSignInButton').style.display = 'block';
         document.getElementById('userProfile').style.display = 'none';
+
+        logActivity(`User signed out at ${new Date().toLocaleString()}`);
     });
+}
+
+function logActivity(message) {
+    let activityLog = JSON.parse(localStorage.getItem('activityLog')) || [];
+    activityLog.push(message);
+    localStorage.setItem('activityLog', JSON.stringify(activityLog));
+}
+
+function loadActivityLog() {
+    const activityLog = JSON.parse(localStorage.getItem('activityLog')) || [];
+    const logContainer = document.getElementById('activityLogContainer');
+    logContainer.innerHTML = activityLog.map(log => `<p>${log}</p>`).join('');
 }

@@ -1,67 +1,107 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام إدارة المنتجات</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المنتجات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="997635938104-06o8a6coujsh0tg8skjpa2d0m7kr4pqe.apps.googleusercontent.com">
 </head>
 <body>
-  <header>
-    <div id="user-info">
-      <!-- سيتم عرض اسم المستخدم وصورته هنا -->
+    <div class="container" id="container">
+        <header>
+            <h1>نظام إدارة المنتجات</h1>
+            <p>نظام بسيط لإدارة المنتجات، يتيح إضافة، حذف، وتحرير المنتجات مع تخزين البيانات في المتصفح.</p>
+            <div id="googleSignInButton" class="google-signin-button">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+            <div id="userProfile" style="display: none;">
+                <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
+                <span id="userName"></span>
+                <button onclick="signOut()">تسجيل الخروج</button>
+            </div>
+            <button id="admin-btn" style="display: none;" onclick="showAdminModal()">إدارة المنتجات</button>
+        </header>
+        <section id="addProductSection" style="display: none;">
+            <h2>إضافة منتج جديد</h2>
+            <form id="productForm">
+                <label for="name">اسم المنتج:</label>
+                <input type="text" id="name" required>
+                <label for="price">السعر:</label>
+                <input type="number" id="price" required>
+                <label for="discount">الخصم (%):</label>
+                <input type="number" id="discount" min="0" max="100">
+                <button type="submit">إضافة المنتج</button>
+            </form>
+        </section>
+        <section id="productsSection">
+            <h2>المنتجات المضافة</h2>
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>السعر</th>
+                        <th>الخصم (%)</th>
+                        <th>السعر بعد الخصم</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Products will be added here dynamically -->
+                </tbody>
+            </table>
+        </section>
     </div>
-    <button id="login-btn">تسجيل الدخول عبر Google</button>
-    <button id="admin-btn" style="display: none;">إدارة المنتجات</button>
-  </header>
 
-  <section id="hero">
-    <h1>نالمنتجات</h1>
-    <p>نظام شامل لإدارة منتجاتك بسهولة وفعالية</p>
-  </section>
-
-  <section id="features">
-    <h2>مميزات النظام</h2>
-    <ul>
-      <li><strong>إدارة المنتجات:</strong> إضافة، تعديل، وحذف المنتجات بسهولة.</li>
-      <li><strong>خصومات:</strong> إدارة الخصومات على المنتجات.</li>
-      <li><strong>تسجيل الدخول الآمن:</strong> تسجيل الدخول عبر Google لضمان أمان بياناتك.</li>
-      <li><strong>واجهة مستخدم سهلة الاستخدام:</strong> تصميم بديهي وسهل الاستخدام.</li>
-      <li><strong>خصائص فريدة:</strong> ميزات خاصة تجعل هذا النظام متميزًا عن غيره.</li>
-    </ul>
-  </section>
-
-  <section id="why-us">
-    <h2>لماذا يجب عليك اختيار نظامنا؟</h2>
-    <p>نظامنا يقدم مجموعة من الميزات التي تجعله الخيار الأمثل لإدارة منتجاتك:</p>
-    <ul>
-      <li><strong>سهولة الاستخدام:</strong> واجهة مستخدم بديهية تجعل إدارة المنتجات أمرًا سهلاً.</li>
-      <li><strong>الأمان:</strong> تسجيل الدخول عبر Google يضمن أمان بياناتك.</li>
-      <li><strong>الكفاءة:</strong> إدارة المنتجات بسرعة وكفاءة.</li>
-      <li><strong>الدعم المستمر:</strong> نقدم دعمًا فنيًا مستمرًا لضمان عمل النظام بكفاءة.</li>
-    </ul>
-  </section>
-
-  <main>
-    <h1>منتجاتنا</h1>
-    <ul id="products-list"></ul>
-  </main>
-
-  <footer>
-    <p>&copy; 2023 نظام إدارة المنتجات</p>
-  </footer>
-
-  <div id="admin-modal" style="display: none;">
-    <div class="modal-content">
-      <h2>إدارة المنتجات</h2>
-      <input type="password" id="admin-password" placeholder="أدخل كلمة المرور">
-      <button id="admin-login-btn">تسجيل الدخول</button>
+    <!-- Admin Modal -->
+    <div id="admin-modal" style="display: none;">
+        <div class="modal-content">
+            <h2>إدارة المنتجات</h2>
+            <input type="password" id="admin-password" placeholder="أدخل كلمة المرور">
+            <button id="admin-login-btn">تسجيل الدخول</button>
+        </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="scripts.js"></script>
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
 </body>
 </html>

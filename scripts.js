@@ -171,7 +171,7 @@ function loadActivityLog() {
 }
 
 function promptForPassword() {
-    const password = 'your_password'; // Replace with your actual password
+    const password = 'Mahmoud5310'; // Replace with your actual password
     const enteredPassword = prompt('أدخل كلمة المرور للوصول إلى سجل الأحداث:');
     if (enteredPassword === password) {
         window.location.href = 'activity_log.html';

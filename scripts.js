@@ -126,3 +126,21 @@ function updateProductInStorage(oldName, updatedProduct) {
     products = products.map(p => p.name === oldName ? updatedProduct : p);
     localStorage.setItem('products', JSON.stringify(products));
 }
+
+function onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    document.getElementById('userImage').src = profile.getImageUrl();
+    document.getElementById('userName').innerText = profile.getName();
+    document.getElementById('googleSignInButton').style.display = 'none';
+    document.getElementById('userProfile').style.display = 'flex';
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        document.getElementById('userImage').src = '';
+        document.getElementById('userName').innerText = '';
+        document.getElementById('googleSignInButton').style.display = 'block';
+        document.getElementById('userProfile').style.display = 'none';
+    });
+}

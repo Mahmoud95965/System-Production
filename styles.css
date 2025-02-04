@@ -7,7 +7,7 @@ body {
     box-sizing: border-box;
     background-color: #f0f4f8;
     color: #333;
-    
+    opacity: 0;
     transition: opacity 1s;
 }
 
@@ -15,11 +15,6 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 60px); /* حساب الارتفاع مع هامش الرأس الثابت */
 }
 
 header {
@@ -300,41 +295,4 @@ td button:hover {
 
 #user-details .user-details-content button:hover {
     background-color: #0056b3;
-}
-
-/* وسائط الاستعلام لتحسين التوافق مع الأجهزة المحمولة */
-@media (max-width: 768px) {
-    header nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    header nav ul li a {
-        margin: 5px 0;
-    }
-
-    #userProfile {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #userProfile img, #userProfile span, #userProfile button, #userProfile a {
-        margin: 5px 0;
-    }
-
-    #user-details .user-details-content {
-        width: 90%;
-    }
-
-    form input {
-        width: 100%;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    th, td {
-        word-wrap: break-word;
-    }
 }

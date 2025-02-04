@@ -127,5 +127,62 @@
     </div>
 
     <script src="scripts.js"></script>
+    <script>
+        // تأثير ظهور الموقع ببطء
+        $(document).ready(function() {
+            $('body').css('opacity', 0).animate({ opacity: 1 }, 1000);
+
+            // تأثير التمرير البطيء بين الأقسام
+            $('nav ul li a').click(function(e) {
+                e.preventDefault();
+                const target = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top - 60 // حساب هامش الرأس الثابت
+                }, 1000);
+            });
+
+            // عرض بيانات المستخدم عند الضغط على أيقونة الحساب
+            document.getElementById('userImage').addEventListener('click', () => {
+                const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+                document.getElementById('userImageDetails').src = profile.getImageUrl();
+                document.getElementById('userDetailsName').textContent = profile.getName();
+                document.getElementById('userDetailsEmail').textContent = profile.getEmail();
+                document.getElementById('user-details').style.display = 'block';
+            });
+
+            // إغلاق بيانات المستخدم
+            function hideUserDetails() {
+                document.getElementById('user-details').style.display = 'none';
+            }
+        });
+
+        // تأثير كتابة الكلمة الثابتة ببطء
+        const text = "مرحبا بك في متجرنا الإلكتروني";
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("dynamic-text").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100);
+            } else {
+                setTimeout(eraseText, 3000); // بعد 3 ثوانٍ، امسح النص
+            }
+        }
+
+        function eraseText() {
+            if (index > 0) {
+                index--;
+                document.getElementById("dynamic-text").innerHTML = text.substring(0, index);
+                setTimeout(eraseText, 50);
+            } else {
+                setTimeout(typeWriter, 1000); // بعد ثانية، ابدأ الكتابة مرة أخرى
+            }
+        }
+
+        window.onload = function() {
+            typeWriter();
+        };
+    </script>
 </body>
 </html>

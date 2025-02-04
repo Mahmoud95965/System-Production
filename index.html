@@ -14,6 +14,9 @@
     <header>
         <nav>
             <ul>
+                <li id="googleSignInButton" class="google-signin-button">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </li>
                 <li><a href="#home">الرئيسية</a></li>
                 <li><a href="#vegetables">الخضروات</a></li>
                 <li><a href="#fruits">الفواكه</a></li>
@@ -26,9 +29,6 @@
                 </li>
             </ul>
         </nav>
-        <div id="googleSignInButton" class="google-signin-button">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        </div>
     </header>
 
     <div class="container" id="container">
@@ -109,6 +109,15 @@
         </section>
     </div>
 
+    <div id="user-details" style="display: none;">
+        <div class="user-details-content">
+            <img id="userImageDetails" src="" alt="User Image" style="width: 50px; height: 50px; border-radius: 50%;">
+            <p id="userDetailsName"></p>
+            <p id="userDetailsEmail"></p>
+            <button onclick="hideUserDetails()">إغلاق</button>
+        </div>
+    </div>
+
     <div id="admin-modal" style="display: none;">
         <div class="modal-content">
             <h2>إدارة المنتجات</h2>
@@ -128,9 +137,23 @@
                 e.preventDefault();
                 const target = $(this).attr('href');
                 $('html, body').animate({
-                    scrollTop: $(target).offset().top
+                    scrollTop: $(target).offset().top - 60 // حساب هامش الرأس الثابت
                 }, 1000);
             });
+
+            // عرض بيانات المستخدم عند الضغط على أيقونة الحساب
+            document.getElementById('userImage').addEventListener('click', () => {
+                const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+                document.getElementById('userImageDetails').src = profile.getImageUrl();
+                document.getElementById('userDetailsName').textContent = profile.getName();
+                document.getElementById('userDetailsEmail').textContent = profile.getEmail();
+                document.getElementById('user-details').style.display = 'block';
+            });
+
+            // إغلاق بيانات المستخدم
+            function hideUserDetails() {
+                document.getElementById('user-details').style.display = 'none';
+            }
         });
 
         // تأثير كتابة الكلمة الثابتة ببطء

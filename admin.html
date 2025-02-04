@@ -8,11 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="#vegetables">الخضروات</a></li>
+                <li><a href="#fruits">الفواكه</a></li>
+                <li><a href="#other">المنتجات الأخرى</a></li>
+            </ul>
+        </nav>
+        <div id="googleSignInButton" class="google-signin-button">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+    </header>
+
     <div class="container" id="container">
-        <header>
-            <h1>إدارة المنتجات</h1>
-            <a href="index.html" class="back-link">العودة إلى الصفحة الرئيسية</a>
-        </header>
         <section id="addProductSection">
             <h2>إضافة منتج جديد</h2>
             <form id="productForm">
@@ -50,6 +60,7 @@
             </table>
         </section>
     </div>
+
     <script src="admin-scripts.js"></script>
 </body>
 </html>

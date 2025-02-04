@@ -84,11 +84,15 @@ $(document).ready(function() {
 
     // عرض بيانات المستخدم عند الضغط على أيقونة الحساب
     document.getElementById('userImage').addEventListener('click', () => {
-        const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
-        document.getElementById('userImageDetails').src = profile.getImageUrl();
-        document.getElementById('userDetailsName').textContent = profile.getName();
-        document.getElementById('userDetailsEmail').textContent = profile.getEmail();
-        document.getElementById('user-details').style.display = 'block';
+        if (document.getElementById('user-details').style.display === 'block') {
+            hideUserDetails();
+        } else {
+            const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+            document.getElementById('userImageDetails').src = profile.getImageUrl();
+            document.getElementById('userDetailsName').textContent = profile.getName();
+            document.getElementById('userDetailsEmail').textContent = profile.getEmail();
+            document.getElementById('user-details').style.display = 'block';
+        }
     });
 
     // إغلاق بيانات المستخدم

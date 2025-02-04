@@ -18,17 +18,17 @@
                 <li><a href="#vegetables">الخضروات</a></li>
                 <li><a href="#fruits">الفواكه</a></li>
                 <li><a href="#other">المنتجات الأخرى</a></li>
-                <li id="googleSignInButton" class="google-signin-button">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </li>
                 <li id="userProfile" style="display: none;">
                     <img id="userImage" src="" alt="User Image" style="width: 30px; height: 30px; border-radius: 50%;">
                     <span id="userName"></span>
                     <button onclick="signOut()">تسجيل الخروج</button>
-                    <a id="admin-link" href="admin.html" onclick="showAdminModal()" style="display: none;">إدارة المنتجات</a>
+                    <a id="admin-link" href="#" onclick="showAdminModal()" style="display: none;">إدارة المنتجات</a>
                 </li>
             </ul>
         </nav>
+        <div id="googleSignInButton" class="google-signin-button">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
     </header>
 
     <div class="container" id="container">

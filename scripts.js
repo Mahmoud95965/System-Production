@@ -81,6 +81,20 @@ $(document).ready(function() {
             scrollTop: $(target).offset().top - 60 // حساب هامش الرأس الثابت
         }, 1000);
     });
+
+    // عرض بيانات المستخدم عند الضغط على أيقونة الحساب
+    document.getElementById('userImage').addEventListener('click', () => {
+        const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+        document.getElementById('userImageDetails').src = profile.getImageUrl();
+        document.getElementById('userDetailsName').textContent = profile.getName();
+        document.getElementById('userDetailsEmail').textContent = profile.getEmail();
+        document.getElementById('user-details').style.display = 'block';
+    });
+
+    // إغلاق بيانات المستخدم
+    function hideUserDetails() {
+        document.getElementById('user-details').style.display = 'none';
+    }
 });
 
 // تأثير كتابة الكلمة الثابتة ببطء

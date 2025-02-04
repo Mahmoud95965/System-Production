@@ -61,7 +61,7 @@ function showAdminModal() {
 // تسجيل الدخول إلى لوحة الإدارة
 document.getElementById('admin-login-btn').addEventListener('click', () => {
     const password = document.getElementById('admin-password').value;
-    if (password === 'Mahmoud5310') {
+    if (password === '159206') {
         window.location.href = 'admin.html';
         document.getElementById('admin-modal').style.display = 'none';
     } else {
@@ -78,7 +78,7 @@ $(document).ready(function() {
         e.preventDefault();
         const target = $(this).attr('href');
         $('html, body').animate({
-            scrollTop: $(target).offset().top
+            scrollTop: $(target).offset().top - 60 // حساب هامش الرأس الثابت
         }, 1000);
     });
 });

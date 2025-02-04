@@ -78,10 +78,5 @@ function deleteProduct(index) {
     alert('تم حذف المنتج بنجاح!');
 }
 
-// العودة إلى الصفحة الرئيسية
-function goBack() {
-    window.location.href = 'index.html';
-}
-
 // عرض المنتجات عند تحميل الصفحة
 displayAdminProducts();
